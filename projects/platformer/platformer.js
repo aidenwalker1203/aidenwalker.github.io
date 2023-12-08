@@ -60,11 +60,11 @@ createPlatform(900,200,500,10)
     // Your collectable choices are 'database' 'diamond' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce)
 
-createCollectable("database",790,440)
-createCollectable("steve",90,150)
-createCollectable("grace",260,110)
-createCollectable("kennedi",460,110)
-createCollectable("max",1150,120)
+createCollectable("star",790,440)
+createCollectable("mushroom",90,150)
+createCollectable("flower",260,110)
+createCollectable("block",460,110)
+createCollectable("coin",1150,120)
 
     // TODO 3
     // Create cannons
