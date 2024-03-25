@@ -18,12 +18,76 @@ var runLevels = function (window) {
 
     // TODOs 5 through 11 go here
     // BEGIN EDITING YOUR CODE HERE
+
+    //creates the saw blades in the game
+   function createSawBlade(x, y, damage){
     var hitZoneSize = 25;
     var damageFromObstacle = 10;
     var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
-    sawBladeHitZone.x = 400;
-    sawBladeHitZone.y = groundY - 120;
+    sawBladeHitZone.x = x;
+    sawBladeHitZone.y = y;
     game.addGameItem(sawBladeHitZone);
+    var obstacleImage = draw.bitmap("img/sawblade.png");
+    sawBladeHitZone.addChild(obstacleImage);
+    obstacleImage.x = -25;
+    obstacleImage.y = -25;
+    
+   }
+    createSawBlade(400, groundY - 120, 10)
+    createSawBlade(500, groundY - 120, 100)
+    createSawBlade(700, groundY - 120, 50)
+
+
+    function createEnemy(x, y){
+      var enemy = game.createGameItem("enemy", 25);
+      var blueSquare = draw.rect(50, 50, "blue");
+      blueSquare.x = -25;
+      blueSquare.y = -25;
+      enemy.addChild(blueSquare);
+      enemy.x = 700; 
+      enemy.y = groundY - 50;
+      game.addGameItem(enemy);
+      enemy.velocityX = -3;
+  
+      enemy.onPlayerCollision = function () {
+        game.changeIntegrity(-10)
+      };
+      //score any enemy dying
+        enemy.onProjectileCollision = function(){  
+        enemy.flyTo(0, 0);
+        };
+      
+        
+        }
+        createEnemy(200, groundY - 50);
+
+    function createReward(x, y){
+    var reward = game.createGameItem("reward", 25);
+    var yellowSquare = draw.rect(50, 50, "yellow");
+    yellowSquare.x = -25;
+    yellowSquare.y = -25;
+    reward.addChild(yellowSquare);
+    reward.x = 400;
+    reward.y = groundY - 50;
+    game.addGameItem(reward);
+    reward.velocityX = -3;
+
+    reward.onPlayerCollision = function () {
+      game.changeIntegrity(-10)
+      game.increaseScore(50);
+      reward.shrink()
+    };
+    //score any reward dying
+      reward.onProjectileCollision = function(){  
+
+      };
+    
+      
+      }
+
+      createReward(1000, groundY - 100);
+
+  
 
     function startLevel() { 
       // TODO 13 goes below here
