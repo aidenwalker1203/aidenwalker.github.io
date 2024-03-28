@@ -33,22 +33,19 @@ var runLevels = function (window) {
     obstacleImage.y = -25;
     
    }
-    createSawBlade(400, groundY - 120, 10)
-    createSawBlade(500, groundY - 120, 100)
-    createSawBlade(700, groundY - 120, 50)
-
-
+    
+//creates Enemy
     function createEnemy(x, y){
       var enemy = game.createGameItem("enemy", 25);
-      var blueSquare = draw.rect(50, 50, "blue");
-      blueSquare.x = -25;
-      blueSquare.y = -25;
+      var blueSquare = draw.bitmap('img/King_Bowser.webp');
+      blueSquare.x = -100;
+      blueSquare.y = -100;
       enemy.addChild(blueSquare);
       enemy.x = 700; 
       enemy.y = groundY - 50;
       game.addGameItem(enemy);
       enemy.velocityX = -3;
-  
+      
       enemy.onPlayerCollision = function () {
         game.changeIntegrity(-10)
       };
@@ -80,19 +77,53 @@ var runLevels = function (window) {
     //score any reward dying
       reward.onProjectileCollision = function(){  
 
+
       };
-    
+
       
       }
+      //creates my marker
+      function createMarker(x, y){
+        var marker = game.createGameItem("enemy", 25);
+        var blueSquare = draw.rect(50,50,'blue');
+        blueSquare.x = -25;
+        blueSquare.y = -25;
+        marker.addChild(blueSquare);
+        marker.x = x; 
+        marker.y = y;
+        game.addGameItem(marker);
+        marker.velocityX = -1;
+        blueSquare.scaleX = 1;
+        blueSquare.scaleY = 1;
 
+        marker.onPlayerCollision = function () {
+          game.changeIntegrity(25);
+          startLevel();
+        };             
+      }
+      
+      
+      //function calls   
+      createMarker(950, groundY - 50);
       createReward(1000, groundY - 100);
-
   
 
     function startLevel() { 
       // TODO 13 goes below here
-
-
+      var level = levelData[currentLevel];
+      var levelObjects = level.gameItems;
+      for(var i = 0;i < levelObjects.length; i++){
+        var element = levelObjects[i];
+        if(element.type === 'sawblade'){
+          createSawBlade(element.x, element.y);
+        }
+        if(element.type === 'reward'){
+          createReward(element.x, element.y);
+        }
+        if(element.type === 'enemy'){
+          createEnemy(elemnet.x, element.y);
+        }
+      }
 
       //////////////////////////////////////////////
       // DO NOT EDIT CODE BELOW HERE
